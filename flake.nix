@@ -38,7 +38,7 @@
 
   nixConfig = {
     substituters = [
-      "https://cache.nixos.org/"
+      "https://cache.nixos.org"
       "https://nix-community.cachix.org"
 
       # extra substituters
@@ -46,6 +46,7 @@
       "https://nixpkgs-wayland.cachix.org"
     ];
     trusted-public-keys = [
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
 
       # extra keys
@@ -90,7 +91,7 @@
         # available through `sudo nixos-rebuld --flake ~/nix#hostname`
         nixosConfigurations = {
           # WSL
-          "aurora" = lib.nixosSystem {
+          "aurora" = nixosSystem {
             specialArgs = {inherit inputs;};
             modules = [
               ./outputs/hosts/common
@@ -101,7 +102,7 @@
           # personal laptop
           # NOTE: `cinnamon` is pretty much the same as
           # `work` but with some gaming stuff
-          "cinnamon" = lib.nixosSystem {
+          "cinnamon" = nixosSystem {
             specialArgs = {inherit inputs;};
             modules = [
               ./outputs/hosts/common
@@ -110,7 +111,7 @@
           };
 
           # work laptop
-          "TIN076" = lib.nixosSystem {
+          "TIN076" = nixosSystem {
             specialArgs = {inherit inputs;};
             modules = [
               ./outputs/hosts/common
@@ -122,7 +123,7 @@
         # standalone home-manager configuration entrypoint
         # available through `home-manager --flake .#username@hostname`
         homeManagerConfigurations = {
-          "tar@cinnamon" = lib.homeManagerConfiguration {
+          "tar@cinnamon" = homeManagerConfiguration {
             pkgs = pkgsFor "x86_64-linux";
             extraSpecialArgs = {inherit inputs;};
             modules = [
@@ -131,7 +132,7 @@
             ];
           };
 
-          "tar@TIN076" = lib.homeManagerConfiguration {
+          "tar@TIN076" = homeManagerConfiguration {
             pkgs = pkgsFor "x86_64-linux";
             extraSpecialArgs = {inherit inputs;};
             modules = [
