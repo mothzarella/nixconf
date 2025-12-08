@@ -2,16 +2,18 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+with lib; {
   home = {
-    username = lib.mkDefault "tar";
-    homeDirectory = lib.mkDefault (
+    username = mkDefault "tar";
+    homeDirectory = mkDefault (
       if pkgs.stdenv.isDarwin
       then "/Users/tar"
       else "/home/tar"
     );
-    stateVersion = lib.mkDefault "25.05";
+
+    stateVersion = mkDefault "25.05";
   };
 
-  programs.home-manager.enable = lib.mkDefault true;
+  programs.home-manager.enable = mkDefault true;
 }

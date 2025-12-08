@@ -1,8 +1,4 @@
-{
-  inputs,
-  lib,
-  ...
-}:
+{lib, ...}:
 with lib; {
   imports = [
     ./musnix.nix

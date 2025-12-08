@@ -2,8 +2,8 @@
   description = "NixOS configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable-small";
-    nixos-hardware.url = "github:nixos/nixos-hardware";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    hardware.url = "github:nixos/nixos-hardware";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -36,26 +36,28 @@
     };
   };
 
-  nixConfig = {
-    substituters = [
-      "https://cache.nixos.org"
-      "https://nix-community.cachix.org"
-
-      # extra substituters
-      "https://devenv.cachix.org"
-      "https://nixpkgs-wayland.cachix.org"
-    ];
-    trusted-public-keys = [
-      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-
-      # extra keys
-      "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
-      "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
-    ];
-  };
+  # FIX: update substituters
+  #  nixConfig = {
+  #    substituters = [
+  #      "https://cache.nixos.org"
+  #      "https://nix-community.cachix.org"
+  #
+  #      # extra substituters
+  #      "https://devenv.cachix.org"
+  #      "https://nixpkgs-wayland.cachix.org"
+  #    ];
+  #    trusted-public-keys = [
+  #      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+  #      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+  #
+  #      # extra keys
+  #      "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
+  #      "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
+  #    ];
+  #  };
 
   outputs = {
+    self,
     nixpkgs,
     home-manager,
     ...
@@ -92,7 +94,7 @@
         nixosConfigurations = {
           # WSL
           "aurora" = nixosSystem {
-            specialArgs = {inherit inputs;};
+            specialArgs = {inherit inputs self;};
             modules = [
               ./outputs/hosts/common
               ./outputs/hosts/aurora
@@ -103,18 +105,18 @@
           # NOTE: `cinnamon` is pretty much the same as
           # `work` but with some gaming stuff
           "cinnamon" = nixosSystem {
-            specialArgs = {inherit inputs;};
+            specialArgs = {inherit inputs self;};
             modules = [
-              ./outputs/hosts/common
+              ./outputs/hosts/common/configuration
               ./outputs/hosts/cinnamon
             ];
           };
 
           # work laptop
           "TIN076" = nixosSystem {
-            specialArgs = {inherit inputs;};
+            specialArgs = {inherit inputs self;};
             modules = [
-              ./outputs/hosts/common
+              ./outputs/hosts/common/configuration
               ./outputs/hosts/work
             ];
           };
@@ -122,7 +124,7 @@
 
         # standalone home-manager configuration entrypoint
         # available through `home-manager --flake .#username@hostname`
-        homeManagerConfigurations = {
+        homeConfigurations = {
           "tar@cinnamon" = homeManagerConfiguration {
             pkgs = pkgsFor "x86_64-linux";
             extraSpecialArgs = {inherit inputs;};

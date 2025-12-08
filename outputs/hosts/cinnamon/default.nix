@@ -1,8 +1,21 @@
-{ pkgs, ... }: {
+{...}: {
   imports = [
     ./hardware.nix
+
+    # users
+    ../common/users/tar
+
+    # local
+    ./drivers
+    ./virtualisation
+
+    # modules
+    ../common/audio
+    ../common/networking
+    ../common/printing
   ];
 
+  # bootable system
   boot.loader = {
     systemd-boot.enable = true;
     efi.canTouchEfiVariables = true;
@@ -10,25 +23,14 @@
 
   networking.hostName = "cinnamon";
 
-  time.timeZone = "Europe/Rome";
+  services = {
+    displayManager.sddm = {
+      enable = true;
+      wayland.enable = true;
+    };
 
-  i18n.defaultLocale = "en_US.UTF-8";
-
-  programs = {
-    nix-ld.enable = true;
-    fish.enable = true;
+    desktopManager.gnome.enable = true;
   };
-
-  users.users.tar = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" ];
-    shell = pkgs.fish;
-  };
-
-  environment.systemPackages = with pkgs; [ 
-    vim
-    gcc
-  ];
 
   system.stateVersion = "25.05";
 }
