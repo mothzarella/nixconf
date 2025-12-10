@@ -24,7 +24,11 @@ in {
     # enable OpenGL
     graphics = {
       enable = true;
-      extraPackages = [pkgs.nvidia-vaapi-driver];
+      extraPackages = with pkgs; [
+        vaapi-intel-hybrid
+        nvidia-vaapi-driver
+        libva
+      ];
     };
     nvidia = {
       # enable the open source drivers if the package supports it
@@ -40,7 +44,7 @@ in {
       };
 
       # kernel driver package
-      package = config.boot.kernelPackages.nvidiaPackages.beta;
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
     };
   };
 }

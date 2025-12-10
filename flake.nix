@@ -20,11 +20,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # wayland pkgs
     nixpkgs-wayland = {
       url = "github:nix-community/nixpkgs-wayland";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # audio
     musnix = {
       url = "github:musnix/musnix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -61,20 +63,15 @@
     nixpkgs,
     home-manager,
     ...
-  } @ inputs:
-    with nixpkgs.lib.extend (
+  } @ inputs: let
+    lib = nixpkgs.lib.extend (
       _final: _prev:
-        (import ./lib) // home-manager.lib
-    ); let
-      pkgsFor = system:
-        import nixpkgs {
-          inherit system;
-          config.allowUnfree = true;
-        };
-    in
+        (import ./lib inputs) // home-manager.lib
+    );
+  in
+    with lib;
       eachSystem [
         "x86_64-linux" # linux & WSL
-        "aarch64-linux"
       ] (system: let
         pkgs = pkgsFor system;
       in {
@@ -89,6 +86,8 @@
         packages = import ./outputs/packages {inherit pkgs;};
       })
       // {
+        inherit lib;
+
         # NixOS configuration entrypoint
         # available through `sudo nixos-rebuld --flake ~/nix#hostname`
         nixosConfigurations = {
@@ -127,7 +126,7 @@
         homeConfigurations = {
           "tar@cinnamon" = homeManagerConfiguration {
             pkgs = pkgsFor "x86_64-linux";
-            extraSpecialArgs = {inherit inputs;};
+            extraSpecialArgs = {inherit inputs self;};
             modules = [
               ./outputs/homes/tar/cinnamon
               ./outputs/homes/common
@@ -136,7 +135,7 @@
 
           "tar@TIN076" = homeManagerConfiguration {
             pkgs = pkgsFor "x86_64-linux";
-            extraSpecialArgs = {inherit inputs;};
+            extraSpecialArgs = {inherit inputs self;};
             modules = [
               ./outputs/homes/tar/work
               ./outputs/homes/common

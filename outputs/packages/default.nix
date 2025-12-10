@@ -1,3 +1,5 @@
-{pkgs ? import <nixpkgs> {}, ...}: {
-  sddm-silent = pkgs.callPackage ./sddm/silent pkgs;
+{pkgs ? import <nixpkgs> {}, ...}:
+with pkgs; {
+  sddm-silent = callPackage ./sddm/silent pkgs;
+  nix-search = callPackage ./nix-search pkgs;
 }

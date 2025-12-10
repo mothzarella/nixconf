@@ -1,4 +1,4 @@
-let
+inputs: let
   # list of default supported systems
   # @see https://github.com/nix-systems/nix-systems
   defaultSystems = [
@@ -29,6 +29,12 @@ in rec {
 
   eachDefaultSystem = f:
     eachSystem defaultSystems f;
+
+  pkgsFor = system:
+    import inputs.nixpkgs {
+      inherit system;
+      config.allowUnfree = true;
+    };
 
   # scan paths/modules
   scanTree = {
