@@ -35,6 +35,7 @@
 
     packages = with pkgs; [
       ungoogled-chromium
+      nix-search
 
       terraform
     ];

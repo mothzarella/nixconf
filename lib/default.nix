@@ -1,4 +1,6 @@
 inputs: let
+  inherit (inputs) self nixpkgs;
+
   # list of default supported systems
   # @see https://github.com/nix-systems/nix-systems
   defaultSystems = [
@@ -8,7 +10,7 @@ inputs: let
     "x86_64-linux"
   ];
 in rec {
-  inherit defaultSystems;
+  inherit defaultSystems inputs;
 
   eachSystem = systems: f:
     builtins.foldl' (
@@ -31,9 +33,13 @@ in rec {
     eachSystem defaultSystems f;
 
   pkgsFor = system:
-    import inputs.nixpkgs {
+    import nixpkgs {
       inherit system;
-      config.allowUnfree = true;
+      config = {
+        allowUnfree = true;
+        allowUnfreePredicate = _: true;
+      };
+      overlays = builtins.attrValues self.overlays.${system};
     };
 
   # scan paths/modules
