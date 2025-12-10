@@ -7,6 +7,7 @@ with lib; {
   security.rtkit.enable = mkDefault true;
 
   services = {
+    # PulseAudio disabled in favor of PipeWire
     pulseaudio.enable = mkDefault false;
     pipewire = {
       enable = mkDefault true;

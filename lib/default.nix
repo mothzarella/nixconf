@@ -32,6 +32,7 @@ in rec {
   eachDefaultSystem = f:
     eachSystem defaultSystems f;
 
+  # build pkgs for specific system
   pkgsFor = system:
     import nixpkgs {
       inherit system;

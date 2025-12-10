@@ -1,27 +1,22 @@
 {
   config,
   pkgs,
-  self,
   ...
 }: {
   imports = [
     ../../common/editors
 
-    self.outputs.homeManagerModules.uwsm
+    ./niri
   ];
 
   home = {
     sessionVariables = {
       NIXOS_OZONE_WL = "1";
       ELECTRON_OZONE_PLATFORM_HINT = "auto";
-      GDK_BACKEND = "wayland,x11,*";
       QT_QPA_PLATFORM = "wayland;xcb";
       SDL_VIDEODRIVER = "wayland";
       CLUTTER_BACKEND = "wayland";
       XDG_SESSION_TYPE = "wayland";
-
-      AQ_TRACE = "1";
-      AQ_DRM_DEVICES = "/dev/dri/card1:/dev/dri/card2";
 
       GBM_BACKEND = "nvidia-drm";
       __GLX_VENDOR_LIBRARY_NAME = "nvidia";
@@ -42,7 +37,6 @@
   };
 
   programs = {
-    uwsm.enable = true;
     vesktop.enable = true; # discord alternative
 
     # terminal

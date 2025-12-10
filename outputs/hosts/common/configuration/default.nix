@@ -32,16 +32,15 @@ in
       git # version control
     ];
 
-    # run unpatched dynamic binaries
-    programs.nix-ld.enable = true;
-
     # timezone & i18n
     time.timeZone = mkDefault "Europe/Rome";
     i18n.defaultLocale = mkDefault "en_US.UTF-8";
 
-    # privacy kit
+    # enable privacy kit
     security.polkit.enable = mkDefault true;
 
-    # enable cpu printing
-    services.printing.enable = mkDefault true;
+    programs = {
+      # run unpatched dynamic binaries
+      nix-ld.enable = mkDefault true;
+    };
   }

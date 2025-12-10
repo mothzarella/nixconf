@@ -79,7 +79,7 @@
         formatter = pkgs.alejandra;
 
         # overlay, consumed by other flakes
-        overlays = import ./outputs/overlays;
+        overlays = import ./outputs/overlays {inherit inputs;};
 
         # accessible through 'nix build', 'nix shell', etc
         devShells = import ./outputs/shell.nix {inherit pkgs;};

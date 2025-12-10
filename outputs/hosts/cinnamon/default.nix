@@ -11,6 +11,7 @@
 
     # modules
     ../common/audio
+    ../common/bluetooth
     ../common/networking
     ../common/printing
   ];
@@ -28,12 +29,19 @@
       enable = true;
       wayland.enable = true;
     };
+
+    blueman.enable = true;
+    dbus.implementation = "broker";
+    gnome = {
+      gnome-keyring.enable = true;
+
+      # apps
+      core-apps.enable = false;
+      core-developer-tools.enable = false;
+      games.enable = false;
+    };
+
     # desktopManager.gnome.enable = true;
-    # gnome = {
-    #   core-apps.enable = false;
-    #   core-developer-tools.enable = false;
-    #   games.enable = false;
-    # };
   };
 
   programs = {
@@ -57,12 +65,20 @@
     };
   };
 
-  xdg.portal.extraPortals = [
-    pkgs.xdg-desktop-portal-gnome
-  ];
+  xdg.portal = {
+    enable = true;
+    xdgOpenUsePortal = true;
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-gnome
+
+      # fallback
+      xdg-desktop-portal-gtk
+      xdg-desktop-portal-wlr # overlay
+    ];
+  };
 
   environment.systemPackages = with pkgs; [
-    wl-clipboard
+    wl-clipboard # overlay
   ];
 
   system.stateVersion = "25.05";

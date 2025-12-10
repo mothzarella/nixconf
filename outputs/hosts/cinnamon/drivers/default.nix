@@ -35,7 +35,7 @@ in {
       open = cfg ? open && cfg ? firmware;
 
       # prevent suspend/wakeup issues
-      powerManagement.enable = false;
+      powerManagement.enable = true;
 
       # prime sync pci
       prime = {
@@ -44,7 +44,7 @@ in {
       };
 
       # kernel driver package
-      package = config.boot.kernelPackages.nvidiaPackages.stable;
+      package = config.boot.kernelPackages.nvidiaPackages.latest;
     };
   };
 }
