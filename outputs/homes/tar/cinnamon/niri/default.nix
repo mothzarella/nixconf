@@ -14,7 +14,7 @@
 in {
   home.file.".config/niri/config.kdl".text = ''
     debug {
-      render-drm-device "/dev/dri/renderD128"
+      render-drm-device "/dev/dri/by-path/pci-0000:01:00.0-render"
     }
 
     spawn-sh-at-startup "sh -c ${startup}/bin/startup"

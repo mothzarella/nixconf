@@ -27,17 +27,25 @@
       NVD_BACKEND = "direct";
     };
 
-    file.".config/uwsm/env".source = "${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh";
-
     packages = with pkgs; [
       libnotify
 
-      ungoogled-chromium
+      # TODO: manage qt with devenv
+      kdePackages.qtdeclarative
+
       nautilus
       nix-search
 
       terraform
     ];
+  };
+
+  xdg.configFile = {
+    "uwsm/env".source = "${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh";
+    "quickshell" = {
+      source = ./theme/quickshell;
+      recursive = true;
+    };
   };
 
   services = {
@@ -52,7 +60,12 @@
   };
 
   programs = {
+    quickshell.enable = true;
     vesktop.enable = true; # discord alternative
+    chromium = {
+      enable = true;
+      package = pkgs.brave;
+    };
 
     # terminal
     fastfetch.enable = true;

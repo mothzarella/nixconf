@@ -39,7 +39,7 @@
     };
 
     # multi-touch gesture recognizer
-    touchegg.enable = true;
+    touchegg.enable = false;
 
     # allows applications to update firmware
     fwupd.enable = true;

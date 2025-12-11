@@ -7,6 +7,7 @@
         "nix"
         "terraform"
         "colored-zed-icons-theme"
+        "qml"
       ];
 
       userSettings = {
