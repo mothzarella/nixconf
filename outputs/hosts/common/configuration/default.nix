@@ -30,6 +30,7 @@ in
       vim # must have editor
       clang # LLVM
       git # version control
+      openssl # secure communication
     ];
 
     # timezone & i18n
@@ -42,5 +43,21 @@ in
     programs = {
       # run unpatched dynamic binaries
       nix-ld.enable = mkDefault true;
+    };
+
+    services = {
+      # IPC
+      dbus.implementation = "broker";
+
+      # user credentials manager
+      gnome.gnome-keyring.enable = true;
+
+      # OpenSSH & SSH daemon
+      openssh = {
+        enable = true;
+        allowSFTP = true;
+      };
+
+      sshd.enable = true;
     };
   }

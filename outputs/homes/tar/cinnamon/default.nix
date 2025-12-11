@@ -7,6 +7,7 @@
     ../../common/editors
 
     ./niri
+    ./theme
   ];
 
   home = {
@@ -29,22 +30,35 @@
     file.".config/uwsm/env".source = "${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh";
 
     packages = with pkgs; [
+      libnotify
+
       ungoogled-chromium
+      nautilus
       nix-search
 
       terraform
     ];
   };
 
+  services = {
+    mako = {
+      enable = true;
+      settings = {
+        actions = true;
+        anchor = "top-right";
+        icons = true;
+      };
+    };
+  };
+
   programs = {
     vesktop.enable = true; # discord alternative
 
     # terminal
-    git.enable = true;
     fastfetch.enable = true;
     btop.enable = true;
 
     fuzzel.enable = true;
-    alacritty.enable = true;
+    kitty.enable = true;
   };
 }

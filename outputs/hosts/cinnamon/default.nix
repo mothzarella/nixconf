@@ -22,26 +22,21 @@
     efi.canTouchEfiVariables = true;
   };
 
-  networking.hostName = "cinnamon";
+  networking = {
+    hostName = "cinnamon";
+    firewall = {
+      enable = true;
+      allowedTCPPorts = [
+        3389 # RDP
+      ];
+    };
+  };
 
   services = {
     displayManager.sddm = {
       enable = true;
       wayland.enable = true;
     };
-
-    blueman.enable = true;
-    dbus.implementation = "broker";
-    gnome = {
-      gnome-keyring.enable = true;
-
-      # apps
-      core-apps.enable = false;
-      core-developer-tools.enable = false;
-      games.enable = false;
-    };
-
-    # desktopManager.gnome.enable = true;
   };
 
   programs = {
