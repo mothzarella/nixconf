@@ -1,12 +1,13 @@
 {pkgs, ...}: {
   imports = [
+    # hardware & drivers
     ./hardware.nix
+    ./drivers
 
     # users
     ../common/users/tar
 
     # local
-    ./drivers
     ./virtualisation
 
     # modules
@@ -14,6 +15,7 @@
     ../common/bluetooth
     ../common/networking
     ../common/printing
+    ../common/xdg
   ];
 
   # bootable system
@@ -24,12 +26,7 @@
 
   networking = {
     hostName = "cinnamon";
-    firewall = {
-      enable = true;
-      allowedTCPPorts = [
-        3389 # RDP
-      ];
-    };
+    firewall.enable = true;
   };
 
   services = {
@@ -70,18 +67,6 @@
       enable = true;
       package = pkgs.xwayland-satellite;
     };
-  };
-
-  xdg.portal = {
-    enable = true;
-    xdgOpenUsePortal = true;
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-gnome
-
-      # fallback
-      xdg-desktop-portal-gtk
-      xdg-desktop-portal-wlr # overlay
-    ];
   };
 
   environment.systemPackages = with pkgs; [
