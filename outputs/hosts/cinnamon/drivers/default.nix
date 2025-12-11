@@ -44,7 +44,7 @@ in {
       };
 
       # kernel driver package
-      package = with config.boot.kernelPackages; nvidiaPackages.stable;
+      package = config.boot.kernelPackages.nvidiaPackages.beta;
     };
   };
 }

@@ -38,7 +38,6 @@ in rec {
       inherit system;
       config = {
         allowUnfree = true;
-        allowUnfreePredicate = _: true;
       };
       overlays = builtins.attrValues self.overlays.${system};
     };

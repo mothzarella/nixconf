@@ -37,6 +37,18 @@
       enable = true;
       wayland.enable = true;
     };
+
+    # multi-touch gesture recognizer
+    touchegg.enable = true;
+
+    # allows applications to update firmware
+    fwupd.enable = true;
+
+    # temperature management
+    thermald.enable = true;
+
+    # userspace virtual filesystem
+    gvfs.enable = true;
   };
 
   programs = {
