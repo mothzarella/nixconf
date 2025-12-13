@@ -15,8 +15,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    devenv = {
-      url = "github:cachix/devenv";
+    pre-hooks = {
+      pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -41,6 +41,15 @@
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+  };
+
+  nixConfig = {
+    extra-trusted-public-keys = [
+      "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
+    ];
+    extra-substituters = [
+      "https://devenv.cachix.org"
+    ];
   };
 
   # FIX: update substituters
@@ -87,7 +96,7 @@
         overlays = import ./outputs/overlays {inherit inputs;};
 
         # accessible through 'nix build', 'nix shell', etc
-        devShells = import ./outputs/shell.nix {inherit pkgs;};
+        devShells = import ./outputs/shells {inherit pkgs;};
         packages = import ./outputs/pkgs {inherit pkgs;};
       })
       // {

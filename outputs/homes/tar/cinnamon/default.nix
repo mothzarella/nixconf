@@ -4,6 +4,8 @@
   ...
 }: {
   imports = [
+    ../. # base configuration
+
     ../../common/editors
 
     ./niri
@@ -57,21 +59,5 @@
         icons = true;
       };
     };
-  };
-
-  programs = {
-    quickshell.enable = true;
-    vesktop.enable = true; # discord alternative
-    chromium = {
-      enable = true;
-      package = pkgs.brave;
-    };
-
-    # terminal
-    fastfetch.enable = true;
-    btop.enable = true;
-
-    fuzzel.enable = true;
-    kitty.enable = true;
   };
 }
