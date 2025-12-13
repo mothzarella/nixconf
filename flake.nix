@@ -15,8 +15,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    pre-hooks = {
-      pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
+    pre-commit-hooks = {
+      url = "github:cachix/pre-commit-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -41,36 +41,9 @@
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-  };
 
-  nixConfig = {
-    extra-trusted-public-keys = [
-      "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
-    ];
-    extra-substituters = [
-      "https://devenv.cachix.org"
-    ];
+    spicetify-nix.url = "github:Gerg-L/spicetify-nix";
   };
-
-  # FIX: update substituters
-  #  nixConfig = {
-  #    substituters = [
-  #      "https://cache.nixos.org"
-  #      "https://nix-community.cachix.org"
-  #
-  #      # extra substituters
-  #      "https://devenv.cachix.org"
-  #      "https://nixpkgs-wayland.cachix.org"
-  #    ];
-  #    trusted-public-keys = [
-  #      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-  #      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-  #
-  #      # extra keys
-  #      "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
-  #      "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
-  #    ];
-  #  };
 
   outputs = {
     self,

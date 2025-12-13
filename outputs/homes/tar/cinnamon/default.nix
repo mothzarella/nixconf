@@ -7,6 +7,7 @@
     ../. # base configuration
 
     ../../common/editors
+    ../../common/music
 
     ./niri
     ./theme
