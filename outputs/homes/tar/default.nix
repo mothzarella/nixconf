@@ -5,7 +5,9 @@
 }:
 with lib; {
   home.packages = with pkgs; [
-    terraformer
+    # git
+    sourcegit
+    git-graph
   ];
 
   programs = {
@@ -23,10 +25,15 @@ with lib; {
     vesktop.enable = mkDefault true; # discord alternative
     chromium = {
       enable = mkDefault true;
-      package = mkDefault pkgs.brave; # browser
+      package = mkDefault pkgs.brave;
     };
 
-    fastfetch.enable = mkDefault true;
-    btop.enable = mkDefault true;
+    btop.enable = mkDefault true; # system monitor
+    gh.enable = mkDefault true; # github cli
+    fastfetch.enable = mkDefault true; # system info
+    fd.enable = mkDefault true; # file finder
+    fzf.enable = mkDefault true; # fuzzy finder
+    ripgrep.enable = mkDefault true; # file search
+    zoxide.enable = mkDefault true; # directory navigation
   };
 }

@@ -16,4 +16,6 @@ with lib; {
   };
 
   programs.home-manager.enable = mkDefault true;
+
+  systemd.user.startServices = mkDefault "sd-switch";
 }
