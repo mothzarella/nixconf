@@ -12,6 +12,10 @@
     mako &
   '';
 in {
+  # enable playerctld daemon
+  services.playerctld.enable = true;
+
+  # configuration
   home.file.".config/niri/config.kdl".text = ''
     debug {
       render-drm-device "/dev/dri/by-path/pci-0000:01:00.0-render"
@@ -77,8 +81,8 @@ in {
         XF86AudioPrev        allow-when-locked=true { spawn-sh "playerctl previous"; }
         XF86AudioNext        allow-when-locked=true { spawn-sh "playerctl next"; }
 
-        XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
-        XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
+        XF86MonBrightnessUp allow-when-locked=true { spawn "${pkgs.brightnessctl}/bin/brightnessctl" "--class=backlight" "set" "+10%"; }
+        XF86MonBrightnessDown allow-when-locked=true { spawn "${pkgs.brightnessctl}/bin/brightnessctl" "--class=backlight" "set" "10%-"; }
 
         Mod+O repeat=false { toggle-overview; }
 

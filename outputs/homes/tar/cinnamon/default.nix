@@ -7,6 +7,7 @@
     ../. # base configuration
 
     ../../common/editors
+    ../../common/microphone
     ../../common/music
 
     ./niri
@@ -15,6 +16,8 @@
 
   home = {
     sessionVariables = {
+      # niri
+      # NOTE: do not set `GDK_BACKEND`
       NIXOS_OZONE_WL = "1";
       ELECTRON_OZONE_PLATFORM_HINT = "auto";
       QT_QPA_PLATFORM = "wayland;xcb";
@@ -22,6 +25,7 @@
       CLUTTER_BACKEND = "wayland";
       XDG_SESSION_TYPE = "wayland";
 
+      # nvidia
       GBM_BACKEND = "nvidia-drm";
       __GLX_VENDOR_LIBRARY_NAME = "nvidia";
       __GL_GSYNC_ALLOWED = "1";
@@ -32,19 +36,21 @@
 
     packages = with pkgs; [
       libnotify
+      nix-search # overlay
 
-      # TODO: manage qt with devenv
+      # apps
+      nautilus # gnome file explorer
+
+      # TODO: manage qt with devshell
       kdePackages.qtdeclarative
-
-      nautilus
-      nix-search
-
-      terraform
     ];
   };
 
   xdg.configFile = {
+    # uwsm
     "uwsm/env".source = "${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh";
+
+    # quickshell
     "quickshell" = {
       source = ./theme/quickshell;
       recursive = true;
