@@ -35,7 +35,7 @@ in {
       open = cfg ? open && cfg ? firmware;
 
       # prevent suspend/wakeup issues
-      powerManagement.enable = true;
+      powerManagement.enable = false;
 
       # prime sync pci
       prime = {

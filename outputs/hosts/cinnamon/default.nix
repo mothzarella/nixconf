@@ -14,8 +14,8 @@
     ../common/audio
     ../common/bluetooth
     ../common/networking
+    ../common/portals
     ../common/printing
-    ../common/xdg
   ];
 
   # bootable system

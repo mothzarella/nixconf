@@ -1,6 +1,7 @@
 {
   pkgs,
   inputs,
+  self,
   ...
 }: {
   imports = [
@@ -17,7 +18,7 @@
     enable = true;
     polarity = "dark";
     autoEnable = false;
-    image = ./wallpaper.png;
+    image = "${self.outPath}/assets/wallpaper.png";
 
     targets = {
       nixos-icons.enable = true;
@@ -63,9 +64,12 @@
 
     iconTheme = {
       enable = true;
-      package = pkgs.papirus-icon-theme;
-      dark = "Papirus-Dark";
-      light = "Papirus-Light";
+      package = pkgs.fluent-icon-theme;
+      dark = "Fluent";
+      light = "Fluent";
+      # package = pkgs.mignon-icon-theme;
+      # dark = "Mignon";
+      # light = "Mignon";
     };
 
     cursor = let

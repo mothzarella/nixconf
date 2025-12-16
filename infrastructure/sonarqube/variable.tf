@@ -1,0 +1,3 @@
+variable "localhost" {
+  type = string
+}

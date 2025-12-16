@@ -37,9 +37,10 @@
     packages = with pkgs; [
       libnotify
       nix-search # overlay
+      sonar-scanner-cli-minimal
 
       # apps
-      nautilus # gnome file explorer
+      nemo # cinnamon file explorer
 
       # TODO: manage qt with devshell
       kdePackages.qtdeclarative

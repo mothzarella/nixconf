@@ -35,6 +35,9 @@
             ];
             formatter.external.command = "${pkgs.alejandra}/bin/alejandra";
           };
+          Terraform = {
+            language_servers = ["terraform-ls"];
+          };
         };
 
         lsp = {
