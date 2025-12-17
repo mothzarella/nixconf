@@ -1,8 +1,8 @@
 {pkgs ? import <nixpkgs> {}}:
 with pkgs; {
-  default = pkgs.mkShellNoCC {
+  default = mkShellNoCC {
     NIX_CONFIG = "extra-experimental-features = nix-command flakes";
-    nativeBuildInputs = with pkgs; [
+    nativeBuildInputs = [
       nix
       home-manager
       git
@@ -10,6 +10,5 @@ with pkgs; {
   };
 
   # languages
-  go = import ./languages/go pkgs;
-  terraform = import ./languages/terraform pkgs;
+  dev = import ./dev pkgs;
 }

@@ -35,17 +35,11 @@
             ];
             formatter.external.command = "${pkgs.alejandra}/bin/alejandra";
           };
-          Terraform = {
-            language_servers = ["terraform-ls"];
-          };
         };
 
         lsp = {
           # nix
           nil.binary.path = "${pkgs.nil}/bin/nil";
-
-          # terraform
-          terraform-ls.binary.path = "${pkgs.terraform-ls}/bin/terraform-ls";
         };
       };
     };

@@ -17,7 +17,6 @@ with lib; {
     kitty.enable = mkDefault true; # terminal
     direnv = {
       enable = mkDefault true;
-      enableFishIntegration = mkDefault true;
       nix-direnv.enable = mkDefault true;
     };
 

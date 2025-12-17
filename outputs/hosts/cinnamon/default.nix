@@ -26,13 +26,18 @@
 
   networking = {
     hostName = "cinnamon";
-    firewall.enable = true;
+    firewall = {
+      enable = true;
+      allowedTCPPorts = [
+        5900 # VNC
+      ];
+    };
   };
 
   services = {
-    displayManager.sddm = {
+    displayManager.gdm = {
       enable = true;
-      wayland.enable = true;
+      wayland = true;
     };
 
     # multi-touch gesture recognizer

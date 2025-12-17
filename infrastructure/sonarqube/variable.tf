@@ -1,3 +1,0 @@
-variable "localhost" {
-  type = string
-}

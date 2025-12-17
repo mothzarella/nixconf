@@ -1,11 +1,12 @@
-variable "localhost" {
+variable "host" {
   type    = string
   default = "127.0.0.1"
 }
 
 variable "sock" {
-  type    = string
-  default = "/var/run/docker.sock"
+  type        = string
+  description = "entry point for Docker API"
+  default     = "/var/run/docker.sock"
 }
 
 variable "ports" {
@@ -14,7 +15,7 @@ variable "ports" {
     external = number
     protocol = string
   }))
-  description = "List of port configurations for Docker containers."
+  description = "list of port configurations for Docker containers."
   default = [
     {
       internal = 0000

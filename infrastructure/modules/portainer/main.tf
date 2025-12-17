@@ -1,12 +1,12 @@
 locals {
-  portainer_ports = [
+  ports = [
     { internal = 9443, external = 9443 },
     { internal = 8000, external = 8000 }
   ]
 }
 
 resource "docker_image" "portainer" {
-  name         = "portainer/portainer-ce:lts"
+  name         = "portainer/portainer-ce:alpine"
   keep_locally = false
 }
 
@@ -17,11 +17,11 @@ resource "docker_container" "portainer" {
   restart = "unless-stopped"
 
   dynamic "ports" {
-    for_each = local.portainer_ports
+    for_each = local.ports
     content {
       internal = ports.value.internal
       external = ports.value.external
-      ip       = var.localhost
+      ip       = var.host
       protocol = "tcp"
     }
   }

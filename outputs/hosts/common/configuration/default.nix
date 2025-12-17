@@ -28,7 +28,7 @@ in {
   # system packages
   environment.systemPackages = with pkgs; [
     vim # must have editor
-    clang # LLVM
+    gcc # GNU compiler
     git # version control
     openssl # secure communication
   ];

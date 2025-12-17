@@ -1,4 +1,4 @@
-variable "localhost" {
+variable "host" {
   type = string
 }
 

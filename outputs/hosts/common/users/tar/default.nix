@@ -22,6 +22,4 @@ in {
       "wireshark"
     ];
   };
-
-  programs.fish.enable = true;
 }
