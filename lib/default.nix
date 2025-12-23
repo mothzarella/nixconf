@@ -42,26 +42,35 @@ in rec {
       overlays = builtins.attrValues self.overlays.${system};
     };
 
-  # scan paths/modules
   scanTree = {
-    filter ? null,
-    _depth ? 1,
-  }: path: let
-    scan = depth: current:
+    type ? null,
+    regex ? null,
+    path,
+  }: let
+    scan = current:
       builtins.concatLists (
         builtins.attrValues (
           builtins.mapAttrs (
-            name: type: let
-              path = current + "/${name}";
+            _name: _type: let
+              p = current + "/${_name}";
+              matches =
+                (type == null || _type == type)
+                && (regex == null || builtins.match regex _name != null);
             in
-              if type == "directory"
-              then scan (depth + 1) path
-              else if filter == null || filter name type path depth
-              then [path]
+              if _type == "directory"
+              then
+                scan p
+                ++ (
+                  if matches
+                  then [p]
+                  else []
+                )
+              else if matches
+              then [p]
               else []
           ) (builtins.readDir current)
         )
       );
   in
-    scan _depth path;
+    scan path;
 }

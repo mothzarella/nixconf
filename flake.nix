@@ -69,7 +69,7 @@
         overlays = import ./outputs/overlays {inherit inputs;};
 
         # accessible through 'nix build', 'nix shell', etc
-        devShells = import ./outputs/shells {inherit pkgs;};
+        devShells = import ./outputs/shells {inherit pkgs lib;};
         packages = import ./outputs/pkgs {inherit pkgs;};
       })
       // {
